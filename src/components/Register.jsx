@@ -16,6 +16,8 @@ const Register = () => {
   const redirect_uri='http://localhost:5173'
   const response_type='token'
   const client_secret='bb35de38bce94f5e9a025a163b426925'
+
+  // serach artist  get artist songs,albums,playlists
   
 
 
@@ -48,6 +50,7 @@ const Register = () => {
       ).then((res)=>{
         console.log(res.data);
         settokens(res.data.access_token)
+        localStorage.setItem('sportify_access',JSON.stringify(res.data.access_token))
       }).catch((errors)=>{
         console.log(errors);
 
@@ -67,10 +70,12 @@ const Register = () => {
     // gettoken()
 
   
+  
     useEffect(()=>{
 
       gettoken()
       tokens && getData()
+      // tokens && search_data()
 
     },[])
 
