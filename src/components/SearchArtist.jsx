@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { BsSearch, BsPlay, BsFillPlayBtnFill, BsFillPauseBtnFill } from "react-icons/bs";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import {
+  BsSearch,
+  BsPlay,
+  BsFillPlayBtnFill,
+  BsFillPauseBtnFill,
+} from "react-icons/bs";
 
 import axios from "axios";
+import Toggleplay from "./Toggleplay";
 
 const SearchArtist = () => {
   const [token, settoken] = useState(() =>
@@ -13,8 +19,28 @@ const SearchArtist = () => {
   const [dark, setdark] = useState(false);
   const [search, setsearch] = useState("justin");
   const [play, setplay] = useState(false);
+  const [music, setmusic] = useState();
 
   console.log(search);
+  console.log("play", play);
+ const musicref = useRef(music)
+  // const memoizedCallback = useCallback(
+  //   (music) => {
+
+  //     play && music.play()
+  //     console.log( " music played");
+
+  //   },[play],
+  // )
+
+  // const playmusic= async()=>{
+
+  //  let music=  new Audio(music)
+  //  console.log(music);
+  //   music.play()
+  //   // setmusic()
+  // }
+  // // music && playmusic()
 
   const search_data = () => {
     const data = axios
@@ -39,13 +65,24 @@ const SearchArtist = () => {
   const handle_change = (e) => {
     setsearch(e.target.value);
   };
-  // const handle_play = (song) => {
-  //   console.log("song", song);
+  // const handle_play = () => {
+  //   console.log(music);
+  //   music && play && music.play
   //   console.log(play);
-  //   // setplay(!play)
-  //   const audio = new Audio(song);
-  //   play ? audio.play() : audio.pause();
+  //   !play && music.pause()
+
   // };
+  useEffect(()=>{
+     data && data.tracks.items.map((artist, index) => {
+      setmusic(artist.preview_url)
+
+
+    })
+    console.log("data");
+   
+
+  },[])
+  
 
   const getdata = () => {
     console.log("tracks", data.tracks.items);
@@ -98,6 +135,7 @@ const SearchArtist = () => {
   useEffect(() => {
     token && search_data();
     data && getdata();
+    // play && music.play
   }, []);
 
   return (
@@ -134,7 +172,22 @@ const SearchArtist = () => {
                   <div key={index} className="">
                     <div className=" grid  content-center   shadow-md rounded-sm border-none bg-transparent ">
                       <title>album</title>
+                  <div className=" relative">
+                      
+                    
+                    <div className=" absolute w-5 h-5   right-1/2 left-1/2 top-1/2 bottom-1/2 opacity-25 hover:opacity-100  hover:visible hover:scale-150  ">
+                                <div 
+                                onClick={()=>{setplay(!play);
+                                  const mymusic = new Audio(artist.preview_url)
+                                  setmusic()
+                                   console.log(play);}}
+
+                                >  </div>
+                                {/* { music && <Toggleplay isplaying={play} music={musicref.current}/>}  */}
+                    </div>
+                    
                       <div>
+                        <a href={artist.external_urls.spotify} target="_blank" >
                         {artist.album.images.map((element, id) => {
                           // console.log(element.height);
                           // console.log(element.url);
@@ -144,7 +197,7 @@ const SearchArtist = () => {
                             return (
                               <div
                                 key={id}
-                                className={`bg-transparent flex justify-center  items-center object-cover relative `}
+                                className={`bg-transparent flex justify-center  items-center object-cover `}
                               >
                                 {/* <h2>{id}</h2> */}
                                 <img
@@ -155,37 +208,23 @@ const SearchArtist = () => {
                                   // height={element.height}
                                   // width={element.width}
                                 />
-                                <div
-                                  className=" absolute w-5 h-5   right-1/2 left-1/2 top-1/2 bottom-1/2 opacity-25 hover:opacity-100  hover:visible hover:scale-150  "
-                                  onClick={() => {
-                                    setplay(!play);
-                                    console.log(play);
-                                    const song =new Audio(artist.preview_url);
-                                    console.log(song.load());
-                                    if (play) {
-                                      song.pause()
-                                      return <div> audio</div>
-                                      
-                                    }else{
-                                      song.play()
-                                      return !play
-                                    }
-                      
-                                    
-                                    console.log(play);
-                                  }}
-                                  
-                                >
-                                  { play ? <BsFillPlayBtnFill /> : <BsFillPauseBtnFill/>}
-                                  
-                                </div>
+                                
                               </div>
                             );
                           }
-                        })}
+                        }
+                       
+                      
+                        )}
+                        </a>
                       </div>
+                      <div/>
+                  </div>
+                      
                     </div>
                     <div className=" mt-2 mx-auto flex justify-center  flex-col p-4 text-xs capitalize ">
+                      <div>
+                       
                       {artist.artists.map((artist_name, id) => {
                         return (
                           <div
@@ -203,6 +242,7 @@ const SearchArtist = () => {
                           </div>
                         );
                       })}
+                      </div>
                       <div className="">
                         <div> Song : {artist.name}</div>
                         <div> Number : {artist.track_number}</div>
