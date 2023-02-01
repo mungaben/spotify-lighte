@@ -18,8 +18,8 @@ function App() {
         <Register/>
         <Routes>
 
-          <Route path='/' element={<SearchTrack/>}/>
-          <Route path='/artist' element={<SearchArtist/>}/>
+          <Route path='/tracks' element={<SearchTrack/>}/>
+          <Route path='/' element={<SearchArtist/>}/>
           
           
         </Routes>
