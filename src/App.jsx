@@ -7,6 +7,7 @@ import './App.css'
 import  { BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import Register from './components/Register'
 import SearchArtist from './components/SearchArtist'
+import SearchTrack from './components/SearchTrack'
 
 function App() {
 
@@ -17,8 +18,8 @@ function App() {
         <Register/>
         <Routes>
 
-          {/* <Route path='/' element={<Register/>}/> */}
-          <Route path='/' element={<SearchArtist/>}/>
+          <Route path='/' element={<SearchTrack/>}/>
+          <Route path='/artist' element={<SearchArtist/>}/>
           
           
         </Routes>

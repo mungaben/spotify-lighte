@@ -17,7 +17,7 @@ const Register = () => {
   const response_type='token'
   const client_secret='bb35de38bce94f5e9a025a163b426925'
 
-  // serach artist  get artist songs,albums,playlists
+  // serach artist  get artist ,tracks,albums,playlists
   
 
 
@@ -58,15 +58,15 @@ const Register = () => {
 
     }
 
-  const getData= async()=>{
-    const data=await axios.get("https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",{
-      headers:{'Authorization':`Bearer ${tokens}`}
-    }).then((res)=>{
-      console.log(res.data);
-    }).catch((errors)=>{
-      console.log(errors);
-    })
-  }
+  // const getData= async()=>{
+  //   const data=await axios.get("https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",{
+  //     headers:{'Authorization':`Bearer ${tokens}`}
+  //   }).then((res)=>{
+  //     console.log(res.data);
+  //   }).catch((errors)=>{
+  //     console.log(errors);
+  //   })
+  // }
     // gettoken()
 
   
@@ -74,7 +74,7 @@ const Register = () => {
     useEffect(()=>{
 
       gettoken()
-      tokens && getData()
+      // tokens && getData()
       // tokens && search_data()
 
     },[])
