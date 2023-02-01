@@ -4,11 +4,16 @@ import { redirect } from 'react-router-dom'
 import queryString from 'query-string';
 import qs from 'qs';
 
-
+let api = {
+  client_id: import.meta.env.VITE_CLIENT_ID,
+  client_secret: import.meta.env.VITE_CLIENT_SECRET,
+  
+};
 
 const Register = () => {
   const [tokens, settokens] = useState();
   console.log(tokens);
+
   
  
   const authEndpoint = "https://accounts.spotify.com/authorize"
@@ -16,6 +21,7 @@ const Register = () => {
   const redirect_uri='http://localhost:5173'
   const response_type='token'
   const client_secret='bb35de38bce94f5e9a025a163b426925'
+  
 
   // serach artist  get artist ,tracks,albums,playlists
   
@@ -96,7 +102,9 @@ const Register = () => {
 
   return (
     <div>
-      react
+        {/* <p>print env secret to HTML</p>
+       <pre>{process.env.REACT_APP_SECRET_NAME}</pre> */}
+      
     </div>
   )
 }
