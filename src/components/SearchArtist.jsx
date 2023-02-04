@@ -20,10 +20,12 @@ const SearchArtist = () => {
   const [search, setsearch] = useState("justin");
   const [play, setplay] = useState(false);
   const [music, setmusic] = useState();
+  const[created,setcreated]=useState(false)
+  const[paused,setpaused]=useState()
 
   console.log(search);
   console.log("play", play);
- const musicref = useRef(music)
+//  const musicref = useRef(music)
   // const memoizedCallback = useCallback(
   //   (music) => {
 
@@ -177,12 +179,81 @@ const SearchArtist = () => {
                     
                     <div className=" absolute w-5 h-5   right-1/2 left-1/2 top-1/2 bottom-1/2 opacity-25 hover:opacity-100  hover:visible hover:scale-150  ">
                                 <div 
-                                onClick={()=>{setplay(!play);
-                                  const mymusic = new Audio(artist.preview_url)
+                                onClick={()=>{
+                                  // setplay(!play);
+                                  console.log('====================================');
+                                  console.log(play);
+                                  console.log('====================================');
+                                    let mymusic;
+                                    console.log("mymusicallllll",mymusic);
+                                    if (!created) {
+                                      
+                                       mymusic =  new Audio(artist.preview_url)
+                                      setmusic(mymusic)
+                                      if(!play && mymusic.paused && mymusic.currentTime >= 0 && !mymusic.started ){
+                                        console.log("musical playing playing",mymusic.paused)
+                                        setpaused(mymusic.paused)
+
+                                          mymusic.play() 
+                                        
+                                        console.log("musical playing playing",mymusic.paused)
+                                      } else(play);{
+                                        console.log("pause it")
+                                        mymusic.currentTime >=1 && mymusic.pause()
+                                        setplay(!play)
+                                        console.log("play true and musical playing",mymusic.paused)
+                                      }
+                                      // mymusic.play()
+                                      // play && !mymusic.paused && mymusic.pause()
+                                      
+
+                                      // if (play) {
+                                      //   console.log("playcurre",mymusic.currentTime);
+                                      //   mymusic.pause()
+                                      //   // setplay(!play)
+                                      //   console.log("musical",play);
+                                        
+                                        
+                                      // }else(!play && mymusic.paused && mymusic.currentTime >= 0 && !mymusic.started);{
+                                        
+                                      //   mymusic.play()
+                                      //   console.log("musical hbguihoiu;oi",play);
+                                      
+                                      //   setplay(!play)
+                                      //   setcreated(!created)
+                                      // }
+                                      // mymusic.play()
+
+                                      // mymusic.ended && setcreated(!created)
+                                    }else{
+                                      music && mymusic.pause()
+                                      
+                                      
+
+                                      // setcreated(!created)
+                                      console.log("mymusic not creted" , mymusic);
+                                       setcreated(false)
+                                     
+
+                                      // mymusic.pause()
+                                      // !mymusic.paused && setcreated(false) 
+
+                                      
+                                    }
+                                    
+
+                                   
+                                    // setmusic(mymusic)
+                                    
+                                    
+                                 
+                                 
+                                  
+
                                   setmusic()
                                    console.log(play);}}
 
-                                >  </div>
+                                > hello </div>
                                 {/* { music && <Toggleplay isplaying={play} music={musicref.current}/>}  */}
                     </div>
                     
